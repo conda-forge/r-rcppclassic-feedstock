@@ -1,0 +1,17 @@
+--- a/src/Makevars	2018-07-15 11:38:37.000000000 -0300
++++ b/src/Makevars	2019-07-29 11:40:54.494781470 -0300
+@@ -30,12 +30,12 @@
+ $(USERLIB): 	$(OBJECTS)
+ 		$(SHLIB_CXXLD) -o $(USERLIB) $^ $(SHLIB_CXXLDFLAGS) $(ALL_LIBS)
+ 		@if test -e "/usr/bin/install_name_tool"; then /usr/bin/install_name_tool -id $(R_PACKAGE_DIR)/lib$(R_ARCH)/$(USERLIB) $(USERLIB); fi
+-		@if test -e "/usr/bin/strip" & test -e "/bin/uname" & [[ `uname` == "Linux" ]]; then /usr/bin/strip --strip-unneeded $(USERLIB); fi
++		@if test -n "$(STRIP)" & test -e "/bin/uname" & [[ `uname` == "Linux" ]]; then $(STRIP) --strip-unneeded $(USERLIB); fi
+ 
+ $(USERLIBST): 	$(OBJECTS)
+ 		$(AR) qc $(USERLIBST) $^
+ 		@if test -n "$(RANLIB)"; then $(RANLIB) $(USERLIBST); fi
+-		@if test -e "/usr/bin/strip" & test -e "/bin/uname" & [[ `uname` == "Linux" ]]; then /usr/bin/strip --strip-unneeded $(USERLIBST); fi
++		@if test -n "$(STRIP)" & test -e "/bin/uname" & [[ `uname` == "Linux" ]]; then $(STRIP) --strip-unneeded $(USERLIBST); fi
+ 
+ .PHONY: 	all clean userLibrary 
+ 
