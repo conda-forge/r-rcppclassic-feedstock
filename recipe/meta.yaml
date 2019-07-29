@@ -11,10 +11,12 @@ source:
     - {{ cran_mirror }}/src/contrib/RcppClassic_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/RcppClassic/RcppClassic_{{ version }}.tar.gz
   sha256: 2fec1d6069a2d57a7c366fe000dee76cf81dd420b36c62b4208320e8421a5729
+  patches:
+    - strip.patch
 
 build:
   merge_build_host: True  # [win]
-  number: 1000
+  number: 1001
   rpaths:
     - lib/R/lib/
     - lib/
