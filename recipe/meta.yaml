@@ -1,6 +1,5 @@
 {% set version = "0.9.13" %}
 {% set posix = 'm2-' if win else '' %}
-{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-rcppclassic
@@ -13,8 +12,7 @@ source:
   sha256: 72afd1bec5a488c7cc4fdb7728d006cf83bbb3f53223e18c320ee3024f4e76a2
 
 build:
-  merge_build_host: true  # [win]
-  number: 1
+  number: 2
   rpaths:
     - lib/R/lib/
     - lib/
@@ -22,7 +20,9 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}              # [not win]
+    - {{ stdlib("c") }}                # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
+    - {{ stdlib("m2w64_c") }}          # [win]
     - {{ compiler('cxx') }}            # [not win]
     - {{ compiler('m2w64_cxx') }}      # [win]
     - {{ posix }}filesystem        # [win]
@@ -36,7 +36,6 @@ requirements:
     - r-rcpp >=0.10.2
   run:
     - r-base
-    - {{ native }}gcc-libs         # [win]
     - r-rcpp >=0.10.2
 
 test:
